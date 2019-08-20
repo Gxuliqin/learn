@@ -5,6 +5,6 @@ test git
 
 creating a new branch dev
 
-creat a branch feature
+creat a branch feature1
 
 add a word
