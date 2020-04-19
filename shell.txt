@@ -1,4 +1,4 @@
-# shell学习记录
+# shell学习记录 
 输入重定向  <
 输出重定向 > >> 2> &>
 
@@ -34,7 +34,10 @@
  $$ 位置参数
 	echo $? 上条指令是否成功 成功 :0
 	echo $$ 当前进程pid
-	echo $0 当前程序名
+	echo $0 当前程序名 脚本名称
+	
+	$# 位置参数数量
+	$* 和 $@ 代表所有位置参数 
 
 	位置参数 $1,$2,....${10},${11} 位置1,2，...10,11
 	
@@ -123,7 +126,7 @@
 		命令;;
 	esac
 
-循环： ××/for.sh
+循环： ××/for.sh  para.sh
 	for:  使用反引号`或者$() 方式执行的命令， 结果当做列表处理
 		for 参数 in 列表
 			do 
@@ -147,8 +150,84 @@
 	
   	until: 与while 相反
 		etc.  until [ $a -gt 10 ]; do ((a++)) ; echo $a; done
+	
+	shift 参数左移 a b c d -> b c d 
 
+函数： ×: fun.sh
+ 	自定义函数：
+		function fun(){    #function可省略
+			命令
+		}	
+	
+	函数执行
+		fun
 
+		local 变量名声明局部变量
 
+系统函数：
+ 	/etc/int.d/function
+	
+	别名 alias mv='mv -i'
+	
+
+fork 炸弹 ： | ：&
+
+	fun(){fun |fun& }
+	等同于 .(){.|.&};.
+
+信号：
+	trap echo "sig 15" 15 #捕获15信号  -- kill pid  / kill -15 pid
+		ctr +c = kill -2 pid
+	-9 信号无法捕获、阻塞 信号捕获后失去默认作用
+
+计划任务：
+	一次性计划任务  at  ctr+d 结束输入
+		查看 atq
+	周期计划任务 cron
+		配置方式  crontab -e
+		查看  crontab -l
+		配置格式： 分钟 小时 日期 月份 星期 执行的命令 最小间隔为1分钟
+
+		分钟 小时 日 月 星期 任务
+		0 3 15 × × 每月15号3点整执行
+	延时任务：
+		自行百度
+
+	计划任务加锁：
+		flock -x 排他锁 只能运行单次
+		flock -xn "/tmp/f.lock" -c "/home/liqin/learshell/a.sh"
 		
+正则表达式 文本搜索：
+	元字符;
+		. 匹配除换行符外的任意单个字符
+		× 匹配任意一个跟在它前面的字符
+		[] 匹配方括号的字符类的任意一个
+		^ 匹配开头
+		$ 匹配结尾
+		\ 转义后面的特殊字符
+	grep  查找文本查找 
+		grep a.*  .txt  .*任意字符 
+		grep ^b  cron.txt  b开头
+		grep a$  cron.txt  a结尾
+
+	扩展元字符：
+		+ 匹配前面的正则表打式至少出现一次
+		? 匹配前面的正则表达式出现零次或一次
+		| 匹配它前面或后面的正则表达式
+	
+find: https://www.cnblogs.com/qiaopei/p/5515189.html		
+	find 查找 在目录中找到指定文件
+	find  /etc -name pass  包括目录下
+	find /etc -regex .*wd$  正则
+	find /etc -type d/f -regex .*wd  加入类型
+	find -ctime 2 -atime 3
+	-atime -1 一天之内查看过的
+	-mtime +1 一天之前修改过的  -ctime
+	Access: 2020-04-19 11:41:21.761698034 +0800  atime
+	Modify: 2020-04-19 11:40:41.569533472 +0800  mtime
+ 	Change: 2020-04-19 11:40:41.569533472 +0800  ctime
+
+	find *.txt -exec rm -v {} \; 删除txt文件
+	
+	stat file 查看文件详细信息
 
