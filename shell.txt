@@ -231,3 +231,29 @@ find: https://www.cnblogs.com/qiaopei/p/5515189.html
 	
 	stat file 查看文件详细信息
 
+sed:
+	匹配替换 -i 执行替换
+	sed -e 's/old/new' -e 's/old/new' filename > file
+	sed -i 	's/old/new' filename
+
+		sed 's/saver/Saver/' regression.py 
+		  466  vi regression.py 
+ 		 467  sed 's/saver/Saver/' regression.py 
+  		468  cat regression.py 
+  		470  stat regression.py 
+ 		 471  cat regression.py 
+  		472  sed 's/path/PATH/' regression.py 
+  		473  stat regression.py 
+  		474  sed 's/path/PATH/' regression.py 
+  		475  sudo sed 's/path/PATH/' regression.py 
+
+iptabels:
+	
+	iptables -t filter -A INPUT -s 10.0.0.1 -j ACCEPT
+	iptables -vnL 查看详细
+	iptables -A INPUT -j DROP 添加丢弃所有
+	iptables -p 
+	ipdatbels -F 重置iptables规则
+	-I 重新设置　－Ａ追加规则
+
+	
