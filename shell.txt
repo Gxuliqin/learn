@@ -257,3 +257,40 @@ iptabels:
 	-I 重新设置　－Ａ追加规则
 
 	
+
+firewallD:
+	systemctl status firewalld.service 查看 
+	systemctl start firewalld.service 启动
+	firewall-cmd --list-all　列出默认状态
+	firewall-cmd --get-default-zone　
+	firewall-cmd --state
+	firewall-cmd --get-active-zone　　查看激活的块
+
+	添加　--add
+	firewall-cmd --list-port 列出端口　
+	firewall-cmd --add-service=https 添加服务
+	firewall-cmd --add-port=82/tcp　添加端口
+	firewall-cmd --add-port=82/tcp --permanent 永久生效
+	firewall-cmd --reload  修改后重新加载生效
+	
+	移除　--remove
+
+	
+telnet服务：默认端口23/tcp
+	 sudo /etc/init.d/openbsd-inetd restart  打开telnet
+	tcpdump -i any port 23 -s 1500 -w /home/lq/a.dump  抓包
+	telnet ip
+	wareshark 图形包分析
+
+ssh服务：
+	/etc/ssh/sshd_config 服务配置
+	netstat -ntpl | grep 22 查看网络端口
+	restart sshd.service
+	ssh -p 端口　name@ip
+	
+	秘钥认证;
+		ssh-keygen -t rsa  在客户端产生秘钥
+		ssh-copy-id 	将秘钥放到服务端
+		ssh-copy-id -i /home/lq/.ssh/id_rsa.pub liqin@192.168.0.103  lq客户将秘钥copy到liqin服务端
+		
+	
